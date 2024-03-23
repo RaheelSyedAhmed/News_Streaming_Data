@@ -1,0 +1,3 @@
+author,title,description,publishedAt,content
+Kate O'Flaherty,"Apple, Google, and Microsoft Just Patched Some Spooky Security Flaws","Plus: Major vulnerability fixes are now available for a number of enterprise giants, including Cisco, VMWare, Citrix, and SAP.",2023-10-31T11:00:00Z,"Another scary flaw in the System tracked as CVE-2023-40129 is rated as critical. The [vulnerability] could lead to remote code execution with no additional execution privileges needed, Google said.
+… [+3129 chars]"
