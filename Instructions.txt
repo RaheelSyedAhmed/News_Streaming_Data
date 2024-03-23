@@ -1,0 +1,16 @@
+NOTE: Please read the report for explanation on how our data works and why we have data in our articles folder that we process.
+
+1. Start up zookeeper and kafka as specified in the Apache Kafka Quickstart guide. Also create a topic that you will use in the spark-submit later on.
+2. Ensure that you configure your elasticsearch yml and logstash config files after downloading these and Kibana off of elastic downloads. 
+You may need to specify the network host as localhost and the http.port as 9200 in the elasticsearch yml.
+You may need to specify the username, password, and topic name (topic2) in the logstash configuration file too. Username can be elastic, and the password is dependent on the reset via elasticsearch-reset-password -u elastic. Additionally, we use a certificate to authenticate the interaction between logstash and elasticsearch, so make sure that you provide a path for the http_ca.crt file in the cacert field in output.elasticsearch in the conf file.
+Also, we have supplied the logstash-sample.conf that e use to run logstash in this folder. This file is critical for input and output of logstash. It contains information on the fields that kibana and elastic search utilize through this configuration too.
+3. Start up elasticsearch and get the appropriate token to paste into kibana.
+4. Start up kibana, click on the link and paste the token from elastic search after logging in.
+5. Start up logstash.
+6. Run the writeOut.py script with spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 writeOut.py localhost:9092 subscribe topic2
+You may have to change the package name depending on your installation. localhost:9092 is the bootstrap server that would be used in this example. topic2 is the topic name in this example.
+Also, please delete tmp/ or your checkpoint folder every time you want to run this submission. Otherwise, the streaming service WILL hang.
+7. Allow the streaming producer to write to kafka, logstash will pick up the entries and allow for the transfer to elasticsearch and kibana.
+8. View the index produced ("ner") through dataview and show bar charts with the horizontal axis being the top 10 values of word.keyword and the vertical axis being Sum of count (the field entry).
+9. You can also filter for time in the time range at the top right of the data view in kibana.
